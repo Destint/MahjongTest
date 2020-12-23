@@ -1,0 +1,19 @@
+{
+    "App Name": "Git Modulize Manager",
+    "Menu": {
+        "Manager": "Manager",
+        "Git": "Git",
+        "Img": "Image",
+        "Laya": "Laya",
+        "Quit": "Exit",
+        "View": "View",
+        "Zoom in": "Zoom in",
+        "Zoom out": "Zoom out",
+        "Zoom reset": "Zoom reset",
+        "Toggle fullscreen": "Toggle fullscreen",
+        "Toggle devtools": "Toggle devtools",
+        "Help": "Help",
+        "About": "About",
+        "Language": "Language"
+    }
+}

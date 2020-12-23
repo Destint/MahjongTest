@@ -1,0 +1,19 @@
+.header-item {
+    background-color: #bbdefb;
+    border-right: 1px solid #fafafa;
+}
+.menu {
+    padding: 0;
+}
+.menu .menu-icon {
+    min-width: 30px;
+}
+.menu .title {
+    font-size: 14px;
+}
+.menu .subtitle {
+    font-size: 11px;
+}
+.menu .nested-item {
+    background-color: white;
+}

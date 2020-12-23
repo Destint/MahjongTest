@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Git Modulize Manager</title>
+    <!-- <link rel="stylesheet" href="/static/material-design-icons-3.0.1/iconfont/material-icons.css"> -->
+    <% if (process.env.NODE_ENV === 'development') { %>
+    <style>
+      @import './src/assets/material-design-icons-3.0.1/iconfont/material-icons.css'
+    </style>
+    <% } else { %>
+    <script>
+      var head = document.getElementsByTagName('head')[0],
+      cssURL = require('path').join(process.resourcesPath, 'src/assets/material-design-icons-3.0.1/iconfont/material-icons.css'),
+      linkTag = document.createElement('link');
+  
+      linkTag.href = cssURL;
+      linkTag.setAttribute('rel','stylesheet');
+      head.appendChild(linkTag);
+    </script>
+    <% } %>
+    <% if (htmlWebpackPlugin.options.nodeModules) { %>
+      <!-- Add `node_modules/` to global paths so `require` works properly in development -->
+      <script>
+        require('module').globalPaths.push('<%= htmlWebpackPlugin.options.nodeModules.replace(/\\/g, "\\\\") %>')
+      </script>
+    <% } %>
+  </head>
+  <body style="-webkit-user-select:none; user-select:none;">
+    <div id="app"></div>
+    <!-- Set `__static` path to static files in production -->
+    <% if (!process.browser) { %>
+      <script>
+        if (process.env.NODE_ENV !== 'development') window.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
+      </script>
+    <% } %>
+
+    <!-- webpack builds are automatically injected -->
+  </body>
+</html>
