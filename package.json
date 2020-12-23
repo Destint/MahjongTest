@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "author": "Yongyu Chen <2224902862@qq.com>",
   "description": "Git modulize manager(GMM)",
-  "license": "",
+  "license": "BSD-2-Clause",
   "main": "./dist/electron/main.js",
   "scripts": {
     "build": "node .electron-vue/build.js && electron-builder",
@@ -56,18 +56,24 @@
     },
     "linux": {
       "icon": "build/icons"
-    }
+    },
+    "asar": false
   },
   "dependencies": {
     "@antv/g6": "^2.2.6",
     "axios": "^0.18.0",
     "electron-json-storage": "^4.1.5",
+    "imagemin": "^6.1.0",
+    "imagemin-advpng": "^5.0.0",
+    "imagemin-optipng": "^6.0.0",
+    "imagemin-pngquant": "^6.0.1",
     "md5-file": "^4.0.0",
     "muse-ui": "^3.0.1",
     "muse-ui-loading": "^0.2.0",
     "muse-ui-message": "^0.2.1",
     "muse-ui-toast": "^0.3.0",
     "simple-git": "^1.107.0",
+    "ssh2-sftp-client": "^2.5.0",
     "terser": "^3.17.0",
     "typeface-roboto": "^0.0.54",
     "v-tooltip": "^2.0.0-rc.33",
@@ -104,7 +110,7 @@
     "mini-css-extract-plugin": "0.4.0",
     "multispinner": "^0.2.1",
     "node-loader": "^0.6.0",
-    "node-sass": "^4.9.2",
+    "node-sass": "^4.14.1",
     "sass-loader": "^7.0.3",
     "style-loader": "^0.21.0",
     "url-loader": "^1.0.1",

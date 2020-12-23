@@ -70,7 +70,7 @@
                     if (val.showProjSetting && val.repo) {
                         // 模态框弹出时获取项目所有目录
                         this.projFullPaths = {}
-                        this.getProjPaths(this.data.repo.path, this.projFullPaths)
+                        this.getProjPaths("/", this.projFullPaths)
 
                         // 模态框弹出时检测Git项目配置文件
                         this.JStorage.setDataPath(val.repo.path)
@@ -124,17 +124,19 @@
                 })
             },
             getProjPaths: async function(path, dict) {
-                let index = path.lastIndexOf(this._PathSeperater)
-                let folder = index == -1 ? path : path.substr(index + 1)
+                let fullPath = pathModule.join(this.data.repo.path, path).trim(this._PathSeperater, 'right')
+                let index = fullPath.lastIndexOf(this._PathSeperater)
+                let folder = index == -1 ? fullPath : fullPath.substr(index + 1)
                 dict[path] = {folder: folder, subpaths: {}}
                 try {
-                    let dirs = await this.readDir(path)
+                    let dirs = await this.readDir(fullPath)
                     for(var dir of dirs) {
                         if (dir == ".git") continue
-                        const fullPath = pathModule.join(path, dir)
-                        let isDirectory = await this.isDirectory(fullPath)
+                        let fullSubPath = pathModule.join(fullPath, dir)
+                        let subpath = path + dir + "/"
+                        let isDirectory = await this.isDirectory(fullSubPath)
                         if (isDirectory) {
-                            this.getProjPaths(fullPath, dict[path].subpaths) // 父目录已经存在于字典中，无需await
+                            this.getProjPaths(subpath, dict[path].subpaths) // 父目录已经存在于字典中，无需await
                         }
                     }
                 } catch(ex) {

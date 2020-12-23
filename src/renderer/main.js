@@ -30,8 +30,12 @@ Vue.prototype.JStorage = Remote.getGlobal('JStorage')
 Vue.prototype.Git = require('simple-git')
 Vue.prototype._AppConfig = Remote.getGlobal('_AppConfig')
 Vue.prototype._PathSeperater = process.platform == "win32" ? "\\" : "/"
+Vue.prototype._PathMaxWidth = 254.5
 Vue.prototype._GmmConfigFileOrigin = "gmmconfig_origin.json"
 Vue.prototype._GmmConfigFilePlatform = "gmmconfig_platform.json"
+Vue.prototype._GmmMangleFile = "gmm_mangle.json"
+Vue.prototype._GmmServerFile = "gmmconfig_server.json"
+Vue.prototype._GmmNoComPressImgFile = "gmmconfig_noCompressImgPath.json"
 
 Vue.use(MuseUI)
 Vue.use(Toast, { position: "top", time: 3000 })
@@ -120,15 +124,18 @@ String.prototype.trim = function (char, type) {
     return this.replace(/^\s+|\s+$/g, '')
 }
 
-String.prototype.hidePath = function (seperater) {
+String.prototype.hidePath = function (seperater, maxWidth) { 
     if (typeof(this) == "undefined" || this.length == 0) {
         return ""
-    }
-    seperater = seperater || Vue._PathSeperater
+    }  
+    seperater = seperater || Vue.prototype._PathSeperater
+    maxWidth = maxWidth || Vue.prototype._PathMaxWidth
+    let maxCharNum = Math.floor(33*maxWidth/Vue.prototype._PathMaxWidth)
     let index = this.lastIndexOf(seperater)
     let path = this
-    if (index > -1) {
-        path = "..." + this.substr(index)
+    if (this.length > maxCharNum)
+    {
+        path = this.substr(0,maxCharNum- 3 - this.length + index) + "..." + this.substr(index)
     }
     return path
 }

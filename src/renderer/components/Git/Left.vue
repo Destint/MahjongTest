@@ -101,11 +101,12 @@
                         let list = []
                         let checkedList = []
                         // 新增文件
+                        let maxWidth = that.styles.leftBarWidth - 24 - 8 - 12.5 // check box,margin,change active
                         for (var path of status.not_added) {
                             list.push({
                                 path: path,
                                 mark: "add",
-                                label: path.hidePath("/")
+                                label: path.hidePath("/", maxWidth)
                             })
                             // 修正已勾选的文件
                             if (that.checked.indexOf(path) > -1) checkedList.push(path)
@@ -114,7 +115,7 @@
                             list.push({
                                 path: path,
                                 mark: "add",
-                                label: path.hidePath("/")
+                                label: path.hidePath("/", maxWidth)
                             })
                             // 修正已勾选的文件
                             if (that.checked.indexOf(path) > -1) checkedList.push(path)
@@ -124,7 +125,7 @@
                             list.push({
                                 path: path,
                                 mark: "remove",
-                                label: path.hidePath("/")
+                                label: path.hidePath("/", maxWidth)
                             })
                             // 修正已勾选的文件
                             if (that.checked.indexOf(path) > -1) checkedList.push(path)
@@ -134,7 +135,7 @@
                             list.push({
                                 path: path,
                                 mark: "modify",
-                                label: path.hidePath("/")
+                                label: path.hidePath("/", maxWidth)
                             })
                             // 修正已勾选的文件
                             if (that.checked.indexOf(path) > -1) checkedList.push(path)
@@ -144,7 +145,7 @@
                             list.push({
                                 path: path,
                                 mark: "conflict",
-                                label: path.hidePath("/")
+                                label: path.hidePath("/", maxWidth)
                             })
                             // 修正已勾选的文件
                             if (that.checked.indexOf(path) > -1) checkedList.push(path)

@@ -105,6 +105,8 @@
 <script>
     import { ipcRenderer } from 'electron'
     const { exec } = require('child_process')
+    const fs = require('fs')
+    const pathMod = require("path")
 
     import ModalAddRepo from "./Header/ModalAddRepo"
     import GitOperation from "./Header/GitOperation"
@@ -121,6 +123,7 @@
             ModalCreateBranch,
             ModalMergeBranch
         },
+        inject:['reload'],
         data () {
             return {
                 repos: this._AppConfig.Repo,
@@ -245,6 +248,7 @@
             saveRepo: function(repo) {
                 this.repos = ipcRenderer.sendSync("repo-save", repo.name, repo.path)
                 this._AppConfig.Repo = this.repos
+                this.addGitIgnore(repo.path)
                 this.gmm.$emit("updateRepo", repo.name)
                 this.gmm.$emit('updateBranch', repo.name)
                 this.gmm.$emit('gitStatus', repo.name)
@@ -263,6 +267,7 @@
                 this.gmm.$emit("updateRepo", repoName)
                 this.gmm.$emit('updateBranch', repoName)
                 this.gmm.$emit('gitStatus', repoName)
+                this.reload()
             },
             showModalCreateBranch: function() {
                 this.showCreateBranch = true
@@ -297,6 +302,15 @@
             showModalMergeBranch: function() {
                 this.showMergeBranch = true
                 this.showBranch = false
+            },
+            addGitIgnore: function(repoPath) {
+                let ignoreFile = pathMod.join(repoPath, ".gitignore")
+                let content = fs.readFileSync(ignoreFile).toString()
+                if (content.indexOf("bin/js.min") == -1) {
+                    if (content.lastIndexOf("\n") < content.length - 1) content += "\r\n"
+                    content += "bin/js.min"
+                    fs.writeFileSync(ignoreFile, content)
+                }
             }
         }
     }

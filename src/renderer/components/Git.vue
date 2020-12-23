@@ -28,8 +28,8 @@
 <style>
     .mu-snackbar-top {
         left: 50.2%;
-        -webkit-transform: translate3d(-50.2%,0,0);
-        transform: translate3d(-50.2%,0,0);
+        -webkit-transform: translate3d(-50.1%,0,0);
+        transform: translate3d(-50.1%,0,0);
     }
     .mu-dialog-body .mu-modal-content {
         white-space: pre-wrap;

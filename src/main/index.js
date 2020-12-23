@@ -43,8 +43,8 @@ const winURL = process.env.NODE_ENV === 'development'
 function createWindow() {
     if (!mainWindow) {
         mainWindow = new BrowserWindow({
-            width: 1000,
-            height: 563,
+            width: 1300,
+            height: 750,
             minWidth: 785,
             minHeight: 450,
             useContentSize: true,
@@ -155,12 +155,16 @@ function getMenuTemplate() {
                 {
                     label: i18n.__('Menu', 'Img'),
                     accelerator: 'CmdOrCtrl+W',
-                    enabled: false,
-                    click() { }
+                    click: changeApp
                 },
                 {
                     label: i18n.__('Menu', 'Laya'),
                     accelerator: 'CmdOrCtrl+E',
+                    click: changeApp
+                },
+                {
+                    label: i18n.__('Menu', 'Server'),
+                    accelerator: 'CmdOrCtrl+T',
                     click: changeApp
                 },
                 { type: 'separator' },

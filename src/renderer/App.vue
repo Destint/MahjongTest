@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <router-view></router-view>
+        <router-view v-if="isRouterAlive"></router-view>
         <developer-manager :lang="langDev" :show="showDeveloperManager" :developers="developers" @closeModal="showDeveloperManager = false"></developer-manager>
     </div>
 </template>
@@ -12,13 +12,27 @@
 
     export default {
         name: "app-index",
+        provide (){
+            return {
+                reload:this.reload
+            }
+        },
         data () {
             return {
                 langDev: this.i18n.__('Developer'),
                 langMenu: this.i18n.__('Menu'),
                 showDeveloperManager: false,
                 developers: [],
-                projectPath: ""
+                projectPath: "",
+                isRouterAlive:true
+            }
+        },
+        methods:{
+            reload (){
+                this.isRouterAlive = false
+                this.$nextTick(function(){
+                    this.isRouterAlive = true
+                })
             }
         },
         components: {
@@ -48,8 +62,14 @@
                     case this.langMenu['Git']:
                         this.$router.replace({name: "app-git"})
                         break
+                    case this.langMenu['Img']:
+                        this.$router.replace({name: "app-img", params: {projPath: this.projectPath}})
+                        break
                     case this.langMenu['Laya']:
                         this.$router.replace({name: "app-laya", params: {projPath: this.projectPath}})
+                        break
+                    case this.langMenu['Server']:
+                        this.$router.replace({name: "app-server", params: {projPath: this.projectPath}})
                         break
                 }
             })
